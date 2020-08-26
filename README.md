@@ -35,9 +35,71 @@ npm install
 ## Endpoints
 
 ### GET
-| Enpoint       | Result| Requirments |
-| ------------- | -----:|:-----:|
-| /api/house/:id/hostel|hostel name |N/a|
-| /api/house/:id/description | description details |N/a
-| /api/house/:id/address | address details|N/a|
-| /api/house/:id/rules |rules details|N/a|
+| Endpoint       | Result| Requirments |
+| ------------- | -----|:-----:|
+| /api/house/:id/hostel|Hostel Name |N/a|
+| /api/house/:id/description | Description Details |N/a
+| /api/house/:id/address | Address Details|N/a|
+| /api/house/:id/rules |Rules Details|N/a|
+
+### POST
+| Endpoint       | Result| Requirments |
+| ------------- | -----|:-----:|
+| /api/house/:id/hostel|Create new Hostel |application/json|
+
+#### Json input
+```
+ {
+   hostel: ['someName'].
+   description: [
+     editorial1,
+     editorial2,
+     description1,
+     description2,
+     description3
+   ],
+   address: [
+     streetAddress,
+     city,
+     state,
+     zipPlus,
+     zip,
+     country,
+     countryCode,
+     latitude,
+     longitude
+   ],
+   description: [
+      checkInStart,
+      checkIneEd
+      checkOut,
+      kidFriendly,
+      creditCards,
+      ageRestriction,
+      curfew,
+      lockOut,
+      nonSmoking,
+      petFriendly,
+      taxesIncluded,
+      cancellation,
+      importantNotes1,
+      importantNotes2,
+      importantNotes3,
+      importantNotes4,
+      importantNotes5
+   ]
+ }
+```
+
+### PUT
+| Endpoint       | Result| Requirments |
+| ------------- | -----|:-----:|
+| /api/house/:id/hostel|Update Hostel Name |N/a|
+| /api/house/:id/description |Update Description Details |N/a
+| /api/house/:id/address |Update Address Details|N/a|
+| /api/house/:id/rules |Upddate Rules Details|N/a|
+
+### DELETE
+| Endpoint       | Result| Requirments |
+| ------------- | -----|:-----:|
+| /api/house/:id|Delete Hostel |N/a|
