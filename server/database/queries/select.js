@@ -22,4 +22,11 @@ module.exports = {
     const queryStr = `SELECT * from descriptions d INNER JOIN full_listing fl ON fl.name_id = ${id} AND d.id = fl.descriptions_id`;
     db.query(queryStr, callback);
   },
+
+  getFullListing(id, callback) {
+    const queryStr = 'SELECT * FROM full_listing WHERE name_id = ?;';
+
+    db.query(queryStr, [id], callback);
+  },
+
 };
