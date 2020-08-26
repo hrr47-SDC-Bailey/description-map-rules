@@ -11,54 +11,54 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/hostels/:id', express.static(path.join(__dirname, '../public')));
 
 app.get('/api/house/:id/hostel', (req, res) => {
-  query.getHouseInfoByHostelID(req.params.id, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
+  query.getHouseInfoByHostelID(req.params.id)
+    .then((data) => {
       res.send(data);
-    }
-  });
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
 });
 
 app.get('/api/house/:id/description', (req, res) => {
-  query.getHouseDescription(req.params.id, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
+  query.getHouseDescription(req.params.id)
+    .then((data) => {
       res.send(data);
-    }
-  });
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
 });
 
 app.get('/api/house/:id/address', (req, res) => {
-  query.getHouseAddress(req.params.id, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
+  query.getHouseAddress(req.params.id)
+    .then((data) => {
       res.send(data);
-    }
-  });
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
 });
 
 app.get('/api/house/:id/rules', (req, res) => {
-  query.getHouseRules(req.params.id, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
+  query.getHouseRules(req.params.id)
+    .then((data) => {
       res.send(data);
-    }
-  });
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
 });
 
 app.post('/api/house', (req, res) => {
   const { data } = req;
-  query.insertNewHouse(data, (err) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
+  query.insertNewHouse(data)
+    .then(() => {
       res.status(201).send('New Hostel Successully Created');
-    }
-  });
+    })
+    .catch(() => {
+
+    });
 });
 
 // app.get('/house/:id/full_listing', (req, res) => {

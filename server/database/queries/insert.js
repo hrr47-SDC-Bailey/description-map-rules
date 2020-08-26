@@ -1,11 +1,11 @@
 const db = require('../database.js');
 
-const insertNewHouseHostel = (name, callback) => {
+const insertNewHouseHostel = (name) => {
   const queryStr = 'INSERT INTO hostels (hostel_name) values ()';
-  db.query(queryStr, name, callback);
+  return db.query(queryStr, name);
 };
 
-const insertNewHouseDescription = (body, callback) => {
+const insertNewHouseDescription = (body) => {
   const queryStr = `INSERT INTO descriptions
                       (
                         editorial_text_one,
@@ -16,10 +16,10 @@ const insertNewHouseDescription = (body, callback) => {
                       )
                       VALUES (?, ?, ?, ?, ?);`;
 
-  db.query(queryStr, body, callback);
+  return db.query(queryStr, body);
 };
 
-const insertNewHouseRules = (body, callback) => {
+const insertNewHouseRules = (body) => {
   const queryStr = `INSERT INTO rules
                       (
                         check_in_start,
@@ -42,10 +42,10 @@ const insertNewHouseRules = (body, callback) => {
                       )
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
-  db.query(queryStr, body, callback);
+  return db.query(queryStr, body);
 };
 
-const insertNewHouseAddress = (body, callback) => {
+const insertNewHouseAddress = (body) => {
   const queryStr = `INSERT INTO addresses
                       (
                         street_address,
@@ -58,40 +58,28 @@ const insertNewHouseAddress = (body, callback) => {
                         longitude
                       )
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
-  db.query(queryStr, body, callback);
+  return db.query(queryStr, body);
 };
 
-module.exports.insertNewHouse = (body, callback) => {
+module.exports.insertNewHouse = (body) => {
   const fullListingIDs = [];
-  let error = false;
-
-  const newInsert = (err, data) => {
-    if (err) {
-      error = true;
-      callback(err, data);
-    } else {
-      fullListingIDs.push(data.insertId);
-    }
-  };
-
-  insertNewHouseHostel(body.hostel, newInsert);
-
-  if (error) { return; }
-
-  insertNewHouseDescription(body.description, newInsert);
-
-  if (error) { return; }
-
-  insertNewHouseRules(body.rules, newInsert);
-
-  if (error) { return; }
-
-  insertNewHouseAddress(body.address, newInsert);
-
-  if (error) { return; }
-
-  const queryStr = `INSERT INTO full_listing (name_id, descriptions_id, rules_id, addresses_id)
-                      VALUES (?, ?, ?, ?)`;
-
-  db.query(queryStr, fullListingIDs, callback);
+  insertNewHouseHostel(body.hostel)
+    .then((data) => {
+      fullListingIDs.push(data.inserId);
+      return insertNewHouseDescription(body.description);
+    })
+    .then((data) => {
+      fullListingIDs.push(data.inserId);
+      return insertNewHouseRules(body.rules);
+    })
+    .then((data) => {
+      fullListingIDs.push(data.inserId);
+      return insertNewHouseAddress(body.address);
+    })
+    .then((data) => {
+      fullListingIDs.push(data.inserId);
+      const queryStr = `INSERT INTO full_listing (name_id, descriptions_id, rules_id, addresses_id)
+      VALUES (?, ?, ?, ?)`;
+      return db.query(queryStr, fullListingIDs);
+    });
 };

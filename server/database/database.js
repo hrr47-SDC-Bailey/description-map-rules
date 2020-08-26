@@ -2,10 +2,9 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-  host: 'hostileworld.cbl6gs4ouqjh.us-east-2.rds.amazonaws.com',
-  user: 'root',
+  user: 'node',
+  password: 'pw',
   database: 'hostileworld',
-  password: 'hostileworld!'
 });
 
 connection.connect((err) => {
@@ -16,4 +15,14 @@ connection.connect((err) => {
   }
 });
 
-module.exports = connection;
+module.exports.query = (queryStr, queryArgs) => (
+  new Promise((resolve, reject) => {
+    connection.query(queryStr, queryArgs, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  })
+);
