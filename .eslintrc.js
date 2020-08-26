@@ -8,10 +8,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
-    'airbnb/hooks',
   ],
   parserOptions: {
-    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
@@ -21,12 +19,5 @@ module.exports = {
     'react',
   ],
   rules: {
-    'import/extensions': [
-      'error',
-      'never',
-      {
-        jsx: 'always',
-      },
-    ],
   },
 };
