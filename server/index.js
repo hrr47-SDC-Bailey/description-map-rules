@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const favicon = require('serve-favicon');
-const query = require('./database/queries.js');
+const query = require('./database/queries');
 
 const app = express();
 
@@ -20,18 +20,6 @@ app.get('/api/house/:id/hostel', (req, res) => {
     }
   });
 });
-
-app.get('/api/house/:id/hostel', (req, res) => {
-  query.getHouseInfoByHostelID(req.params.id, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.send(data);
-    }
-  });
-});
-
-
 
 app.get('/api/house/:id/description', (req, res) => {
   query.getHouseDescription(req.params.id, (err, data) => {
@@ -62,6 +50,18 @@ app.get('/api/house/:id/rules', (req, res) => {
     }
   });
 });
+
+app.post('/api/house', (req, res) => {
+  const data = req.body.data;
+  query.insertNewHouse(data, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.status(201).send('New Hostel Successully Created');
+    }
+  });
+});
+
 
 // app.get('/house/:id/full_listing', (req, res) => {
 //   query.getHouseFullListing(req.params.id, (err, data) => {
