@@ -57,7 +57,17 @@ app.post('/api/house', (req, res) => {
       res.status(201).send('New Hostel Successully Created');
     })
     .catch(() => {
+      res.sendStatus(500);
+    });
+});
 
+app.post('/api/house/:id', (req, res) => {
+  query.deleteHosel(req.params.id)
+    .then(() => {
+      res.status(201).send('New Hostel Successully Created');
+    })
+    .catch(() => {
+      res.sendStatus(500);
     });
 });
 
