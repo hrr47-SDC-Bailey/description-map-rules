@@ -4,7 +4,10 @@ const {
   getHouseAddress,
   getHouseDescription,
 } = require('./select.js');
+
 const { insertNewHouse } = require('./insert.js');
+
+const { deleteHostel } = require('./delete.js');
 
 module.exports = {
 
@@ -16,5 +19,8 @@ module.exports = {
 
   // Insert Into
   insertNewHouse,
+
+  // Delete Hostels
+  deleteHostel,
 
 };
