@@ -31,3 +31,13 @@ From within the root directory:
 npm install -g webpack
 npm install
 ```
+
+## Endpoints
+
+### GET
+| Enpoint       | Result| Requirments |
+| ------------- | -----:|:-----:|
+| /api/house/:id/hostel|hostel name |N/a|
+| /api/house/:id/description | description details |N/a
+| /api/house/:id/address | address details|N/a|
+| /api/house/:id/rules |rules details|N/a|
