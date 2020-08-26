@@ -2,28 +2,28 @@ const db = require('../database.js');
 
 const updateHouseInfoByHostelID = (body) => {
   const queryStr = `UPDATE hostels
-                      SET (?)
+                      SET ?
                       WHERE id=?;`;
   return db.query(queryStr, body);
 };
 
 const updateHouseDescriptions = (body) => {
   const queryStr = `UPDATE descriptions
-                      SET (?)
+                      SET ?
                       WHERE id=?;`;
   return db.query(queryStr, body);
 };
 
 const updateHouseAddresses = (body) => {
   const queryStr = `UPDATE addresses
-                      SET (?)
+                      SET ?
                       WHERE id=?;`;
   return db.query(queryStr, body);
 };
 
 const updateHouseRules = (body) => {
   const queryStr = `UPDATE rules
-                      SET (?)
+                      SET ?
                       WHERE id=?;`;
   return db.query(queryStr, body);
 };

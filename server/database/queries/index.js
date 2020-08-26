@@ -13,7 +13,7 @@ const {
   updateHouseDescriptions,
   updateHouseAddresses,
   updateHouseRules,
-} = require('./delete.js');
+} = require('./update.js');
 
 module.exports = {
 

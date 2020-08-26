@@ -51,28 +51,19 @@ app.get('/api/house/:id/rules', (req, res) => {
 });
 
 app.post('/api/house', (req, res) => {
-  const { data } = req;
-  query.insertNewHouse(data)
+  const { body } = req;
+  query.insertNewHouse(body)
     .then(() => {
       res.status(201).send('New Hostel Successully Created');
     })
-    .catch(() => {
-      res.sendStatus(500);
-    });
-});
-
-app.post('/api/house/:id', (req, res) => {
-  query.deleteHostel(req.params.id)
-    .then(() => {
-      res.status(201).send('New Hostel Successully Created');
-    })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err.message);
       res.sendStatus(500);
     });
 });
 
 app.put('/api/house/:id/hostel', (req, res) => {
-  const body = req.body.data;
+  const { body } = req;
   query.updateHouseInfoByHostelID([body, req.params.id])
     .then(() => {
       res.send('Record was updated');
@@ -83,7 +74,8 @@ app.put('/api/house/:id/hostel', (req, res) => {
 });
 
 app.put('/api/house/:id/description', (req, res) => {
-  const body = req.body.data;
+  const { body } = req;
+
   query.updateHouseDescriptions([body, req.params.id])
     .then(() => {
       res.send('Record was updated');
@@ -94,7 +86,8 @@ app.put('/api/house/:id/description', (req, res) => {
 });
 
 app.put('/api/house/:id/address', (req, res) => {
-  const body = req.body.data;
+  const { body } = req;
+
   query.updateHouseAddresses([body, req.params.id])
     .then(() => {
       res.send('Record was updated');
@@ -105,12 +98,23 @@ app.put('/api/house/:id/address', (req, res) => {
 });
 
 app.put('/api/house/:id/rules', (req, res) => {
-  const body = req.body.data;
+  const { body } = req;
+
   query.updateHouseRules([body, req.params.id])
     .then(() => {
       res.send('Record was updated');
     })
     .catch(() => {
+      res.sendStatus(500);
+    });
+});
+
+app.delete('/api/house/:id', (req, res) => {
+  query.deleteHostel(req.params.id)
+    .then(() => {
+      res.send('Record was removed');
+    })
+    .catch((err) => {
       res.sendStatus(500);
     });
 });

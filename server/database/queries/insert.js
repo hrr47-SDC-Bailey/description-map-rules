@@ -1,7 +1,7 @@
 const db = require('../database.js');
 
 const insertNewHouseHostel = (name) => {
-  const queryStr = 'INSERT INTO hostels (hostel_name) values ()';
+  const queryStr = 'INSERT INTO hostels (hostel_name) values (?)';
   return db.query(queryStr, name);
 };
 
@@ -65,19 +65,19 @@ module.exports.insertNewHouse = (body) => {
   const fullListingIDs = [];
   return insertNewHouseHostel(body.hostel)
     .then((data) => {
-      fullListingIDs.push(data.inserId);
+      fullListingIDs.push(data.insertId);
       return insertNewHouseDescription(body.description);
     })
     .then((data) => {
-      fullListingIDs.push(data.inserId);
+      fullListingIDs.push(data.insertId);
       return insertNewHouseRules(body.rules);
     })
     .then((data) => {
-      fullListingIDs.push(data.inserId);
+      fullListingIDs.push(data.insertId);
       return insertNewHouseAddress(body.address);
     })
     .then((data) => {
-      fullListingIDs.push(data.inserId);
+      fullListingIDs.push(data.insertId);
       const queryStr = `INSERT INTO full_listing (name_id, descriptions_id, rules_id, addresses_id)
       VALUES (?, ?, ?, ?)`;
       return db.query(queryStr, fullListingIDs);
