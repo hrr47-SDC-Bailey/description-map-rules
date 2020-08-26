@@ -21,6 +21,18 @@ app.get('/api/house/:id/hostel', (req, res) => {
   });
 });
 
+app.get('/api/house/:id/hostel', (req, res) => {
+  query.getHouseInfoByHostelID(req.params.id, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+
+
 app.get('/api/house/:id/description', (req, res) => {
   query.getHouseDescription(req.params.id, (err, data) => {
     if (err) {
