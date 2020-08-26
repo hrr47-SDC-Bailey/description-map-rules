@@ -1,30 +1,30 @@
 /* eslint-disable arrow-body-style */
 const db = require('../database.js');
 
-const getHouseInfoByHostelID = (id, callback) => {
+const getHouseInfoByHostelID = (id) => {
   const queryStr = `SELECT * FROM hostels WHERE (id = ${id})`;
-  db.query(queryStr, callback);
+  return db.query(queryStr);
 };
 
-const getHouseRules = (id, callback) => {
+const getHouseRules = (id) => {
   const queryStr = `SELECT * from rules r INNER JOIN full_listing fl ON fl.name_id = ${id} AND r.id = fl.rules_id`;
-  db.query(queryStr, callback);
+  return db.query(queryStr);
 };
 
-const getHouseAddress = (id, callback) => {
+const getHouseAddress = (id) => {
   const queryStr = `SELECT * from addresses a INNER JOIN full_listing fl ON fl.name_id = ${id} AND a.id = fl.addresses_id`;
-  db.query(queryStr, callback);
+  return db.query(queryStr);
 };
 
-const getHouseDescription = (id, callback) => {
+const getHouseDescription = (id) => {
   const queryStr = `SELECT * from descriptions d INNER JOIN full_listing fl ON fl.name_id = ${id} AND d.id = fl.descriptions_id`;
-  db.query(queryStr, callback);
+  return db.query(queryStr);
 };
 
-const getFullListing = (id, callback) => {
+const getFullListing = (id) => {
   const queryStr = 'SELECT * FROM full_listing WHERE name_id = ?;';
 
-  db.query(queryStr, [id], callback);
+  return db.query(queryStr, [id]);
 };
 
 module.exports = {

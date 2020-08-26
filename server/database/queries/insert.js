@@ -63,7 +63,7 @@ const insertNewHouseAddress = (body) => {
 
 module.exports.insertNewHouse = (body) => {
   const fullListingIDs = [];
-  insertNewHouseHostel(body.hostel)
+  return insertNewHouseHostel(body.hostel)
     .then((data) => {
       fullListingIDs.push(data.inserId);
       return insertNewHouseDescription(body.description);
