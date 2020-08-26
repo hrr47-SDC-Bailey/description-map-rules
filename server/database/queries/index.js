@@ -1,26 +1,38 @@
+const { insertNewHouse } = require('./insert.js');
 const {
   getHouseInfoByHostelID,
-  getHouseRules,
-  getHouseAddress,
   getHouseDescription,
+  getHouseAddress,
+  getHouseRules,
 } = require('./select.js');
-
-const { insertNewHouse } = require('./insert.js');
 
 const { deleteHostel } = require('./delete.js');
 
+const {
+  updateHouseInfoByHostelID,
+  updateHouseDescriptions,
+  updateHouseAddresses,
+  updateHouseRules,
+} = require('./delete.js');
+
 module.exports = {
 
-  // Select From
+  // Create
+  insertNewHouse,
+
+  // Read
   getHouseInfoByHostelID,
   getHouseRules,
   getHouseAddress,
   getHouseDescription,
 
-  // Insert Into
-  insertNewHouse,
+  // Update
+  updateHouseInfoByHostelID,
+  updateHouseDescriptions,
+  updateHouseAddresses,
+  updateHouseRules,
 
-  // Delete Hostels
+  // Delete
   deleteHostel,
 
 };

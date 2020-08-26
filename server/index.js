@@ -62,9 +62,53 @@ app.post('/api/house', (req, res) => {
 });
 
 app.post('/api/house/:id', (req, res) => {
-  query.deleteHosel(req.params.id)
+  query.deleteHostel(req.params.id)
     .then(() => {
       res.status(201).send('New Hostel Successully Created');
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+});
+
+app.put('/api/house/:id/hostel', (req, res) => {
+  const body = req.body.data;
+  query.updateHouseInfoByHostelID([body, req.params.id])
+    .then(() => {
+      res.send('Record was updated');
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+});
+
+app.put('/api/house/:id/description', (req, res) => {
+  const body = req.body.data;
+  query.updateHouseDescriptions([body, req.params.id])
+    .then(() => {
+      res.send('Record was updated');
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+});
+
+app.put('/api/house/:id/address', (req, res) => {
+  const body = req.body.data;
+  query.updateHouseAddresses([body, req.params.id])
+    .then(() => {
+      res.send('Record was updated');
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+});
+
+app.put('/api/house/:id/rules', (req, res) => {
+  const body = req.body.data;
+  query.updateHouseRules([body, req.params.id])
+    .then(() => {
+      res.send('Record was updated');
     })
     .catch(() => {
       res.sendStatus(500);
