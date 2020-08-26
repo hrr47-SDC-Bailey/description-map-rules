@@ -1,102 +1,97 @@
 const db = require('../database.js');
 
-module.exports = {
+const insertNewHouseHostel = (name, callback) => {
+  const queryStr = 'INSERT INTO hostels (hostel_name) values ()';
+  db.query(queryStr, name, callback);
+};
 
-  insertNewHouseHostel(name, callback) {
-    const queryStr = `INSERT INTO hostels (hostel_name) values ()`;
-    db.query(queryStr, name, callback);
-  },
+const insertNewHouseDescription = (body, callback) => {
+  const queryStr = `INSERT INTO descriptions
+                      (
+                        editorial_text_one,
+                        editorial_text_two,
+                        description_text_one,
+                        description_text_two,
+                        description_text_three
+                      )
+                      VALUES (?, ?, ?, ?, ?);`;
 
-  insertNewHouseDescription(body, callback) {
-    const queryStr = `INSERT INTO descriptions
-                        (
-                          editorial_text_one,
-                          editorial_text_two,
-                          description_text_one,
-                          description_text_two,
-                          description_text_three
-                        )
-                        VALUES (?, ?, ?, ?, ?);`
+  db.query(queryStr, body, callback);
+};
 
-    db.query(queryStr, body, callback);
-  },
+const insertNewHouseRules = (body, callback) => {
+  const queryStr = `INSERT INTO rules
+                      (
+                        check_in_start,
+                        check_in_end,
+                        check_out,
+                        kid_friendly,
+                        credit_cards,
+                        age_restriction,
+                        curfew,
+                        lock_out,
+                        non_smoking,
+                        pet_friendly,
+                        taxes_included,
+                        cancellation,
+                        important_notes_one,
+                        important_notes_two,
+                        important_notes_three,
+                        important_notes_four,
+                        important_notes_five
+                      )
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
-  insertNewHouseRules(body, callback) {
-    const queryStr = `INSERT INTO rules
-                        (
-                          check_in_start,
-                          check_in_end,
-                          check_out,
-                          kid_friendly,
-                          credit_cards,
-                          age_restriction,
-                          curfew,
-                          lock_out,
-                          non_smoking,
-                          pet_friendly,
-                          taxes_included,
-                          cancellation,
-                          important_notes_one,
-                          important_notes_two,
-                          important_notes_three,
-                          important_notes_four,
-                          important_notes_five
-                        )
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+  db.query(queryStr, body, callback);
+};
 
-    db.query(queryStr, body, callback);
-  },
+const insertNewHouseAddress = (body, callback) => {
+  const queryStr = `INSERT INTO addresses
+                      (
+                        street_address,
+                        city,
+                        state,
+                        zip,
+                        country,
+                        country_code,
+                        latitude,
+                        longitude
+                      )
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+  db.query(queryStr, body, callback);
+};
 
-  insertNewHouseAddress(body, callback) {
-    const queryStr = `INSERT INTO addresses
-                        (
-                          street_address,
-                          city,
-                          state,
-                          zip,
-                          country,
-                          country_code,
-                          latitude,
-                          longitude
-                        )
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
-    db.query(queryStr, body, callback);
-  },
+module.exports.insertNewHouse = (body, callback) => {
+  const fullListingIDs = [];
+  let error = false;
 
-  insertNewHouse(body, callback) {
-    const fullListingIDs = [];
-    const error = false;
+  const newInsert = (err, data) => {
+    if (err) {
+      error = true;
+      callback(err, data);
+    } else {
+      fullListingIDs.push(data.insertId);
+    }
+  };
 
-    const newInsert = (err, data) => {
-      if (err) {
-        error = true
-        callback(err, data);
-      } else {
-        fullListingIDs.push(data.insertId)
-      }
-    };
+  insertNewHouseHostel(body.hostel, newInsert);
 
-    insertNewHouseHostel(body.hostel, newInsert);
+  if (error) { return; }
 
-    if (error) { return; }
+  insertNewHouseDescription(body.description, newInsert);
 
-    insertNewHouseDescription(body.description, newInsert)
+  if (error) { return; }
 
-    if (error) { return; }
+  insertNewHouseRules(body.rules, newInsert);
 
-    insertNewHouseRules(body.rules, newInsert)
+  if (error) { return; }
 
-    if (error) { return; }
+  insertNewHouseAddress(body.address, newInsert);
 
-    insertNewHouseAddress(body.address, newInsert)
+  if (error) { return; }
 
-    if (error) { return; }
+  const queryStr = `INSERT INTO full_listing (name_id, descriptions_id, rules_id, addresses_id)
+                      VALUES (?, ?, ?, ?)`;
 
-    const queryStr = `INSERT INTO full_listing (name_id, descriptions_id, rules_id, addresses_id)
-                        VALUES (?, ?, ?, ?)`
-
-    db.query(queryStr, fullListingIDs, callback);
-
-  }
-
-}
+  db.query(queryStr, fullListingIDs, callback);
+};

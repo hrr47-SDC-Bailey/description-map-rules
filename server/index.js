@@ -51,7 +51,8 @@ app.get('/api/house/:id/rules', (req, res) => {
 });
 
 app.post('/api/house', (req, res) => {
-  query.insertNewHouse(data, (err, data) => {
+  const { data } = req;
+  query.insertNewHouse(data, (err) => {
     if (err) {
       res.sendStatus(500);
     } else {
