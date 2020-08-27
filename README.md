@@ -35,7 +35,7 @@ npm install
 ## Endpoints
 
 ### GET
-| Endpoint       | Result| Requirments |
+| Endpoint       | Result| Requirements |
 | ------------- | -----|:-----:|
 | /api/house/:id/hostel|Hostel Name |N/a|
 | /api/house/:id/description | Description Details |N/a
@@ -43,7 +43,7 @@ npm install
 | /api/house/:id/rules |Rules Details|N/a|
 
 ### POST
-| Endpoint       | Result| Requirments |
+| Endpoint       | Result| Requirements |
 | ------------- | -----|:-----:|
 | /api/house/:id/hostel|Create new Hostel |application/json|
 
@@ -92,7 +92,7 @@ npm install
 ```
 
 ### PUT
-| Endpoint       | Result| Requirments |
+| Endpoint       | Result| Requirements |
 | ------------- | -----|:-----:|
 | /api/house/:id/hostel|Update Hostel Name |N/a|
 | /api/house/:id/description |Update Description Details |N/a
@@ -100,6 +100,6 @@ npm install
 | /api/house/:id/rules |Upddate Rules Details|N/a|
 
 ### DELETE
-| Endpoint       | Result| Requirments |
+| Endpoint       | Result| Requirements |
 | ------------- | -----|:-----:|
 | /api/house/:id|Delete Hostel |N/a|
