@@ -13,18 +13,16 @@ const generateRecords = () => {
 
   let i = 0;
   function writeData() {
-    const canWrite = true;
-    while (i < numRecords && canWrite) {
-      const record = generateRecord();
-      if (i === numRecords) {
-        stream.write(record, 'utf-8', () => {
-          stream.end();
-        });
-      } else {
-        stream.write(record, 'utf-8');
-      }
+    const record;
+    while (i < numRecords) {
+      record = generateRecord();
+      stream.write(record, 'utf-8');
       i += 1;
     }
+    const record = generateRecord();
+    stream.write(record, 'utf-8', () => {
+      stream.end();
+    });
   }
 
   stream.write(JSON.stringify(headers).slice(1, JSON.stringify(headers).length-1));
