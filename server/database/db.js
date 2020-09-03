@@ -16,19 +16,24 @@ const queries = {
 };
 
 module.exports.find = (req, res) => {
-  pool.connect((err, client, release) => {
-    client.query(queries[req.params.querytype], [req.params.id], (error, result) => {
-      release();
-      if (error) {
-        res.sendStatus(500);
-      } else {
-        console.log(result.rows)
-        res.status(200).json(result.rows.map((row) => {
-          row.latitude = parseFloat(row.latitude);
-          row.longitude = parseFloat(row.longitude);
-          return row;
-        }));
-      }
+  if (queries.hasOwnProperty(req.params.querytype)) {
+    pool.connect((err, client, release) => {
+      client.query(queries[req.params.querytype], [req.params.id], (error, result) => {
+        release();
+        if (error) {
+          res.sendStatus(500);
+        } else {
+          res.status(200).json(result.rows.map((row) => {
+            if (row.latitude) {
+              row.latitude = parseFloat(row.latitude);
+              row.longitude = parseFloat(row.longitude);
+            }
+            return row;
+          }));
+        }
+      });
     });
-  });
+  } else {
+    res.status(400).send('Please provide a supported query type.');
+  }
 };
