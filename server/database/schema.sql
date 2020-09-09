@@ -24,7 +24,7 @@ CREATE TABLE hostels (
   important_notes_three TEXT NOT NULL,
   important_notes_four TEXT NOT NULL,
   important_notes_five TEXT NOT NULL,
-  street_address VARCHAR(2) NOT NULL,
+  street_address VARCHAR(200) NOT NULL,
   city VARCHAR(50) NOT NULL,
   state CHAR(25) NOT NULL,
   zip CHAR(5) NOT NULL,

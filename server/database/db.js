@@ -1,9 +1,12 @@
 const { Pool } = require('pg');
 
+require('dotenv').config();
+
 const pool = new Pool({
-  database: 'test',
-  user: 'nodesdc',
-  password: 'adgdg2hmgS1!2@',
+  host: '3.21.168.34',
+  database: 'wandrr',
+  user: process.env.PGUSER,
+  password: process.env.PGPASS,
   max: 20,
   maxUses: 7500,
 });
@@ -18,20 +21,51 @@ const queries = {
 module.exports.find = (req, res) => {
   if (queries.hasOwnProperty(req.params.querytype)) {
     pool.connect((err, client, release) => {
-      client.query(`SELECT ${queries[req.params.querytype]} FROM hostels WHERE id = ${req.params.id};`, (error, result) => {
-        release();
-        if (error) {
-          res.sendStatus(500);
-        } else {
-          res.status(200).json(result.rows.map((row) => {
-            if (row.latitude) {
-              row.latitude = parseFloat(row.latitude);
-              row.longitude = parseFloat(row.longitude);
-            }
-            return row;
-          }));
-        }
-      });
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        client.query(`SELECT ${queries[req.params.querytype]} FROM hostels WHERE id = ${req.params.id};`, (error, result) => {
+          release();
+          if (error) {
+            res.sendStatus(500);
+          } else {
+            res.status(200).json(result.rows.map((row) => {
+              if (row.latitude) {
+                row.latitude = parseFloat(row.latitude);
+                row.longitude = parseFloat(row.longitude);
+              }
+              return row;
+            }));
+          }
+        });
+      }
+    });
+  } else {
+    res.status(400).send('Please provide a supported query type.');
+  }
+};
+
+module.exports.update = (req, res) => {
+  if (queries.hasOwnProperty(req.params.querytype)) {
+    pool.connect((err, client, release) => {
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        client.query(`UPDATE hostels WHERE id = ${req.params.id};`, (error, result) => {
+          release();
+          if (error) {
+            res.sendStatus(500);
+          } else {
+            res.status(200).json(result.rows.map((row) => {
+              if (row.latitude) {
+                row.latitude = parseFloat(row.latitude);
+                row.longitude = parseFloat(row.longitude);
+              }
+              return row;
+            }));
+          }
+        });
+      }
     });
   } else {
     res.status(400).send('Please provide a supported query type.');
