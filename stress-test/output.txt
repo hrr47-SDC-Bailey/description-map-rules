@@ -1,0 +1,66 @@
+Started phase 0 (10 RPS), duration: 20s @ 18:42:47(-0400) 2020-09-03
+Report @ 18:43:07(-0400) 2020-09-03
+Elapsed time: 20 seconds
+  Scenarios launched:  100
+  Scenarios completed: 100
+  Requests completed:  400
+  Mean response/sec: 40.04
+  Response time (msec):
+    min: 0.9
+    max: 15.7
+    median: 1.4
+    p95: 3.5
+    p99: 5.1
+  Codes:
+    200: 400
+
+Started phase 1 (100 RPS), duration: 20s @ 18:43:07(-0400) 2020-09-03
+Report @ 18:43:17(-0400) 2020-09-03
+Report @ 18:43:27(-0400) 2020-09-03
+Elapsed time: 40 seconds
+  Scenarios launched:  1000
+  Scenarios completed: 1000
+  Requests completed:  4000
+  Mean response/sec: 400.8
+  Response time (msec):
+    min: 0.6
+    max: 34.9
+    median: 0.9
+    p95: 2.9
+    p99: 4.6
+  Codes:
+    200: 4000
+
+Started phase 2 (1000 RPS), duration: 120s @ 18:43:27(-0400) 2020-09-03
+Report @ 18:55:36(-0400) 2020-09-03
+Elapsed time: 12 minutes, 49 seconds
+  Scenarios launched:  1292
+  Scenarios completed: 1307
+  Requests completed:  5213
+  Mean response/sec: 755.96
+  Response time (msec):
+    min: 1.2
+    max: 219.7
+    median: 8.5
+    p95: 20.4
+    p99: 167.9
+  Codes:
+    200: 5213
+
+All virtual users finished
+Summary report @ 18:55:38(-0400) 2020-09-03
+  Scenarios launched:  122200
+  Scenarios completed: 122200
+  Requests completed:  488800
+  Mean response/sec: 632.99
+  Response time (msec):
+    min: 0.6
+    max: 2033.2
+    median: 10.6
+    p95: 34.3
+    p99: 172.1
+  Scenario counts:
+    Fetch Hostel: 122200 (100%)
+  Codes:
+    200: 488800
+
